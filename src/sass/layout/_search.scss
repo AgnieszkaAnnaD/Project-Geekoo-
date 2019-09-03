@@ -1,0 +1,71 @@
+@font-face {
+    font-family: 'avengeroregular';
+    src: url('../Fonts/Avengero/avengeroregular-zvgl-webfont.woff2') format('woff2'),
+         url('../Fonts/Avengero/avengeroregular-zvgl-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'marvelregular';
+    src: url('../Fonts/MarvelRegular/marvel-regular-webfont.woff2') format('woff2'),
+         url('../Fonts/MarvelRegular/marvel-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+.searchContainer {
+    margin: 0 auto;
+    padding: 0.5rem;
+    display: flex;
+    justify-content: center;
+    width: 100%;  
+}
+
+.searchContainer-select {
+    font-family:"avengeroregular", sans-serif;
+    border:2px solid white;
+    background-color: red;
+    height:4rem;
+    width: 12rem;
+    margin: 1rem 1rem;
+    color: white;
+    font-size: 0.8rem;
+}
+
+.searchContainer-select:active {
+    border: 3px solid white;
+    box-shadow: 10px 10px 18px 0px rgba(0,0,0,0.75); 
+}
+
+.sarchContainer-input {
+    background:#fff;
+    font-family:"avengeroregular", sans-serif;
+    color: #666666;
+    text-align: center;
+    font-size: 1.5rem;
+    height: 6rem;
+    width: 35rem;
+    margin: 1rem;
+    border:1px solid red;
+}
+
+.sarchContainer-input:focus {
+    color: #666666;
+    border: 3px solid red;
+    box-shadow: 10px 10px 18px 0px rgba(0,0,0,0.75); 
+}
+
+.searchError {
+    background: red;
+    font-family:"avengeroregular", sans-serif;
+    color: white;
+    width: 30rem;
+    border: 1px solid white;
+    padding: 0.2rem;
+    margin: 2rem auto 0.5rem auto;
+    text-align: center;
+    text-justify: center;
+}

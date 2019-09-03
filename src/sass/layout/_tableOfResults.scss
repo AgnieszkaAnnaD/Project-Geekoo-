@@ -1,0 +1,28 @@
+.tableOfResults {
+    border: 2px solid red;
+    box-shadow: 0px 0px 10px 10px rgba(0,0,0,0.75); 
+    margin: 0 auto;
+    padding: 0.5rem;
+    background-color: rgba(#ffff ,0.5);
+    word-wrap: break-word;
+    font-family:"avengeroregular", sans-serif;
+    color: red;
+    td{
+        padding: 0.2rem 1rem;
+        width: 20rem;
+        text-align: center; 
+        text-justify: center;
+    }
+    .tdNarrow {
+        width: 12rem;
+    }
+   
+}
+
+.seriesTd {
+    font-size: 0.7rem;
+    width: 25rem;
+    height: 25rem;
+    overflow: scroll;
+    flex-wrap: wrap;
+}

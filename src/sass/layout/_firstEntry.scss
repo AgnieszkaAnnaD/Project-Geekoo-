@@ -1,0 +1,93 @@
+@font-face {
+    font-family: 'avengeroregular';
+    src: url('../Fonts/Avengero/avengeroregular-zvgl-webfont.woff2') format('woff2'),
+         url('../Fonts/Avengero/avengeroregular-zvgl-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'marvelregular';
+    src: url('../Fonts/MarvelRegular/marvel-regular-webfont.woff2') format('woff2'),
+         url('../Fonts/MarvelRegular/marvel-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+.firstEntryContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 70rem; 
+    height: 45rem;  
+    margin: 2rem auto;
+    border: 1px solid red;
+    position: relative;
+  
+}
+
+.firstEntryContainer:after {
+    
+        content: "";
+        background-image: url("../img/background.jpg");
+        opacity: 0.3;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        position: absolute;
+        z-index: -1;   
+      
+}
+
+.firstEntryContainer-header {
+    background-color: red;
+    color: white;
+    align-self: center;
+    display: block;
+    width: 100%;
+    height: 25%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: "avengeroregular", Arial, Helvetica, sans-serif;
+    letter-spacing: 0.5rem;
+    h2 {
+        font-size: 2rem;
+    }
+    h3 {
+        font-size: 1.5rem;
+    }
+    
+}
+
+.firstEntryContainer-form {
+    position: relative;
+    top: 8rem;
+}
+
+.firstEntryContainer-inputs {
+    display: flex;
+    flex-direction: row;
+}
+
+.firstEntryContainer-form-input {
+    background:#fff;
+    font-family:"avengeroregular", sans-serif;
+    color:#666;
+    text-align: center;
+    font-size: 3rem;
+    height: 6rem;
+    width: 30rem;
+    margin: 1rem;
+    border:1px solid red;
+}
+
+.firstEntryContainer-form-input:focus {
+    color: lightslategrey;
+    border: 3px solid red;
+    box-shadow: 10px 10px 18px 0px rgba(0,0,0,0.75); 
+}

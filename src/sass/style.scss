@@ -1,0 +1,49 @@
+@import "generic/reset";
+@import "layout/elements";
+@import "layout/firstEntry";
+@import "layout/search";
+@import "layout/mainPage";
+@import "layout/tableOfResults";
+
+
+
+
+@font-face {
+    font-family: 'avengeroregular';
+    src: url('../Fonts/Avengero/avengeroregular-zvgl-webfont.woff2') format('woff2'),
+         url('../Fonts/Avengero/avengeroregular-zvgl-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'marvelregular';
+    src: url('../Fonts/MarvelRegular/marvel-regular-webfont.woff2') format('woff2'),
+         url('../Fonts/MarvelRegular/marvel-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+html {
+    font-size: 16px;
+}
+
+
+.HeaderContainer {
+    background-color: red;
+    position: relative;
+    width: 100%;
+    height: 6rem;
+    font-family:"avengeroregular", sans-serif;
+    color: white;
+    font-size: 2rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    h1{
+        padding: 1rem;
+    }
+}
+
+

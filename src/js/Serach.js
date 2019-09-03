@@ -133,7 +133,7 @@ class Search extends Component{
 
     render(){
         let error;
-        if (this.state.input.length < 3 || this.state.select === ""){
+        if (this.state.input.length < 1 || this.state.select === ""){
             error = (
               <div className = "searchError">
                   <h1>{localStorage.getItem("name")}, you need to tell me what are you looking for</h1>
@@ -154,10 +154,9 @@ class Search extends Component{
                             name="search by"
                             className="searchContainer-select"
                             >
-                                <option value="">Choose category</option>
+                                <option value="" disabled selected>Choose category</option>
                                 <option value = "characters">Characters</option>
                                 <option value = "comics">Comics title</option>
-                                <option></option>
                             </select>
                             <input value = {this.state.input} onChange = {this.handleInputChange} placeholder = "Enter what you search for" className = "sarchContainer-input"></input>
                             <input type = "submit" className = "button" value = "SEARCH"></input>

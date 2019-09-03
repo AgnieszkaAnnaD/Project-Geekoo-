@@ -59,9 +59,10 @@
 }
 
 .searchError {
-    background: red;
+  
     font-family:"avengeroregular", sans-serif;
-    color: white;
+    color: red;
+    text-shadow: #666666;
     width: 30rem;
     border: 1px solid white;
     padding: 0.2rem;

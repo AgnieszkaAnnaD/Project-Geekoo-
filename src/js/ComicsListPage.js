@@ -67,7 +67,7 @@ class ComicsListPage extends Component{
             <img src={e.thumbnail.path + "/portrait_fantastic.jpg"}/>
           </td>
           <td className = "seriesTd">
-            <ul className="charactersList">
+            <ul key = {idex} className="charactersList">
             {
               e.series.items.map((e, index)=>
                 (

@@ -15,7 +15,7 @@ class ComicsListPage extends Component{
   }
 
   loadComics = () => {
-    const { select, input, page, calculateMaxPages } = this.props;
+    const { select, input, page, calculateMaxPages, isLoading } = this.props;
 
     let now = new Date().getTime();
     let hash = CryptoJS.MD5(`${now}${constants.PRIVATE_KEY}${constants.API_KEY}`);
@@ -26,6 +26,8 @@ class ComicsListPage extends Component{
     if (select === "characters"){
       marvelApi = `http://gateway.marvel.com/v1/public/${select}?apikey=${constants.API_KEY}&ts=${now}&hash=${hash}&nameStartsWith=${input}&offset=${page}`
     }
+
+    isLoading()
 
     fetch(marvelApi)
       .then(resp => resp.json())
@@ -65,7 +67,7 @@ class ComicsListPage extends Component{
             <img src={e.thumbnail.path + "/portrait_fantastic.jpg"}/>
           </td>
           <td className = "seriesTd">
-            <ul>
+            <ul className="charactersList">
             {
               e.series.items.map((e, index)=>
                 (

@@ -17,12 +17,15 @@
         width: 12rem;
     }
    
-}
-
 .seriesTd {
     font-size: 0.7rem;
     width: 25rem;
     height: 25rem;
-    overflow: scroll;
+   
     flex-wrap: wrap;
+    }
+}
+.charactersList {
+    overflow-y: scroll;
+    height: 250px;
 }

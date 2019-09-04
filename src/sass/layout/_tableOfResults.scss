@@ -2,30 +2,36 @@
     border: 2px solid red;
     box-shadow: 0px 0px 10px 10px rgba(0,0,0,0.75); 
     margin: 0 auto;
-    padding: 0.5rem;
-    background-color: rgba(#ffff ,0.5);
+    background-color: rgba(#ffff, 0.5);
     word-wrap: break-word;
     font-family:"avengeroregular", sans-serif;
     color: red;
+    text-shadow: 1px 1px 1px 1px rgba(#0000, 0.5);
+    th {
+        font-size: 1.5rem;
+        padding: 0.5rem;
+    }
     td{
-        padding: 0.2rem 1rem;
+        padding: 0.5rem 1rem;
         width: 20rem;
         text-align: center; 
         text-justify: center;
+        border: 1px solid rgba(rgb(255, 0, 0) ,0.3);
     }
     .tdNarrow {
         width: 12rem;
     }
-   
-.seriesTd {
-    font-size: 0.7rem;
-    width: 25rem;
-    height: 25rem;
-   
-    flex-wrap: wrap;
+   .seriesTd {
+        font-size: 0.7rem;
+        width: 25rem;
+        flex-wrap: wrap;
     }
-}
-.charactersList {
-    overflow-y: scroll;
-    height: 250px;
+    .charactersList {
+        overflow-y: scroll;
+        height: 250px;
+    }
+    img {
+        border: 5px solid white;
+        box-shadow: 0px 0px 5px 5px rgba(255, 0, 0, 0.75); 
+    }
 }

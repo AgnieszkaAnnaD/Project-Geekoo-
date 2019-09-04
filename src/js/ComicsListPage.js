@@ -7,14 +7,16 @@ class ComicsListPage extends Component{
     this.state = {
       comics: props.comics,
       comicsToBuy: [],
-      comicOwned: []
+      comicOwned: [],
+      loading: this.props.loading
     };
   }
 
   componentDidUpdate(prevProps) {
     if(prevProps.comics !== this.props.comics){
       this.setState({
-        comics: this.props.comics
+        comics: this.props.comics,
+        loading: false,
       });
     }
   }
@@ -42,26 +44,36 @@ class ComicsListPage extends Component{
   }
 
   render(){
-    const { comics } = this.state;
-    const { select } = this.props;
+    const { comics,  } = this.state;
+    const { select, loading} = this.props;
 
-    if(comics.length === 0){
-      return "";
+    if(loading === true && comics.length === 0 ){
+      return (
+        <div className="loader">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>)
+    }
+    
+    else if(comics.length === 0 && loading === false ){
+      return ""
     }
 
     let newList;
     if (select === "comics"){
+      
       newList = comics.map((e, index) => (
         <tr key = {index}>
           <td> {e.title}</td>
+          <td className="tdExtraNarrow">{e.pageCount}</td>
           <td className="tdNarrow">
             <img src={e.thumbnail.path + "/portrait_fantastic.jpg"}/>
           </td>
           <td className="tdNarrow">
             <button onClick={() => this.ownBtnClick(e)} className="button">I have this one</button>
-          </td>
-          <td button onClick={() => this.toBuyBtnClick(e)} className="tdNarrow">
-            <button className="button">I want to buy it</button>
+            <button  button onClick={() => this.toBuyBtnClick(e)} className="button">I want to buy it</button>
           </td>
         </tr>))
     } else if (select === "characters"){
@@ -88,19 +100,19 @@ class ComicsListPage extends Component{
           </td>
         </tr>))
     }
-    return (
-      <table className="tableOfResults">
-        <thead>
-          <th>CHARACTER NAME</th>
-          <th>AVATAR</th>
-          <th>SERIES</th>
-        </thead>
-        <tbody>
-          {newList}
-        </tbody>
-      </table>
-    );
+      return (
+        <table className="tableOfResults">
+          <thead>
+            <th>CHARACTER NAME</th>
+            <th>AVATAR</th>
+            <th>SERIES</th>
+          </thead>
+          <tbody>
+            {newList}
+          </tbody>
+        </table>
+      )
+    }
   }
-}
 
 export default ComicsListPage;

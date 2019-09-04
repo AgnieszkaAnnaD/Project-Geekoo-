@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import ComicsListPage from "./ComicsListPage";
 import constants from "./constants";
-import ComicsOwned from "./ComicsOwned";
+import {Spinner} from 'spin.js';
 
 class Search extends Component {
 
@@ -14,16 +14,18 @@ class Search extends Component {
     comics: []
   }
 
-  componentDidUpdate() {
-    this.setState({
-      loading: false,
-    })
-  }
+  // componentDidUpdate(prevState) {
+  //   if(prevState.comics !== this.state.comics){
+  //     this.setState({
+  //       loading: false,
+  //     })
+  //   }
+  // }
 
-  handleSubmit = (e) => {
-    e.preventDefault();
-    this.startSearchHandler()
-  }
+  // handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   this.startSearchHandler()
+  // }
 
   handleChange = (e) => {
     this.setState({
@@ -47,7 +49,7 @@ class Search extends Component {
   startSearchHandler = () => {
     this.loadCurrentPage();
     this.setState({
-      loading:true
+      loading: true
     })
   }
 
@@ -125,7 +127,8 @@ class Search extends Component {
 
   }
   render() {
-    const { comics, select, input } = this.state;
+    const { comics, select, input, loading } = this.state;
+    
     let error;
     if (input.length < 1 || select === "") {
       error = (
@@ -134,6 +137,41 @@ class Search extends Component {
         </div>
       );
     }
+
+    // let loadingState; 
+    // const opts = {
+    //       lines: 9, // The number of lines to draw
+    //       length: 38, // The length of each line
+    //       width: 17, // The line thickness
+    //       radius: 45, // The radius of the inner circle
+    //       scale: 1, // Scales overall size of the spinner
+    //       corners: 1, // Corner roundness (0..1)
+    //       color: '#ff0000', // CSS color or array of colors
+    //       fadeColor: 'transparent', // CSS color or array of colors
+    //       speed: 0.6, // Rounds per second
+    //       rotate: 26, // The rotation offset
+    //       animation: 'spinner-line-fade-default', // The CSS animation name for the lines
+    //       direction: 1, // 1: clockwise, -1: counterclockwise
+    //       zIndex: 2e9, // The z-index (defaults to 2000000000)
+    //       className: 'spinner', // The CSS class to assign to the spinner
+    //       top: '49%', // Top position relative to parent
+    //       left: '50%', // Left position relative to parent
+    //       shadow: '0 0 1px transparent', // Box-shadow for the lines
+    //       position: 'absolute' // Element positioning
+    //     };
+        
+        
+    //     const spinner = new Spinner(opts)
+    
+    //     if (loading === true) {
+    //       loadingState = spinner
+    //     }
+    //     else{
+    //       loadingState === ""
+    //     }
+
+
+
 
     return (
       <>
@@ -160,9 +198,10 @@ class Search extends Component {
                 onClick={this.startSearchHandler}
               />
             </form>
+            {/* {loadingState} */}
             
           </div>
-          <ComicsListPage select={select} comics={comics}/>
+          <ComicsListPage select={select} comics={comics} loading={loading}/>
           
         </div>
         <div className="paginationContainer">

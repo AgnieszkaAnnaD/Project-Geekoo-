@@ -16,12 +16,11 @@ class ComicsOwned extends Component {
               <td> 
                 {e.comic.format} : {e.comic.title}
             </td>
+            <td className="tdExtraNarrow">{e.comic.pageCount}</td>
             <td className="tdNarrow">
                 <img src={e.comic.thumbnail.path + "/portrait_fantastic.jpg"}/>
             </td>
-            <td className="tdNarrow">
-                <span>{e.comic.prices[0].price} $</span>
-            </td>
+        
             </tr>))
         return (
         <table className="tableOfResults">
@@ -30,10 +29,10 @@ class ComicsOwned extends Component {
                     TITLE
                 </th>
                 <th>
-                    COVER
+                    PAGE COUNT
                 </th>
                 <th>
-                    PRICE
+                    COVER
                 </th>
             </thead>
             <tbody>

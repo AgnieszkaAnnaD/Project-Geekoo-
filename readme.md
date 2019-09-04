@@ -1,1 +1,3 @@
-Tu będzie opis
+Project Geekoo! 
+
+Simple Marvel API search.

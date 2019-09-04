@@ -1,48 +1,28 @@
 import React, {Component} from "react";
-import constants from "./constants";
 
 class ComicsListPage extends Component{
   constructor(props){
     super(props);
     this.state = {
-      comics: []
+      comics: props.comics
     };
   }
+
   componentDidUpdate(prevProps) {
-    if(prevProps.input !== this.props.input){
-      this.loadComics();
+    if(prevProps.comics !== this.props.comics){
+      this.setState({
+        comics: this.props.comics
+      });
     }
-  }
-
-  loadComics = () => {
-    const { select, input, page, calculateMaxPages, isLoading } = this.props;
-
-    let now = new Date().getTime();
-    let hash = CryptoJS.MD5(`${now}${constants.PRIVATE_KEY}${constants.API_KEY}`);
-    let marvelApi;
-    if (select === "comics"){
-      marvelApi = `http://gateway.marvel.com/v1/public/${select}?apikey=${constants.API_KEY}&ts=${now}&hash=${hash}&titleStartsWith=${input}&offset=${page}`
-    }
-    if (select === "characters"){
-      marvelApi = `http://gateway.marvel.com/v1/public/${select}?apikey=${constants.API_KEY}&ts=${now}&hash=${hash}&nameStartsWith=${input}&offset=${page}`
-    }
-
-    isLoading()
-
-    fetch(marvelApi)
-      .then(resp => resp.json())
-      .then((response)=>{
-        calculateMaxPages(response.data.total);
-        this.setState({
-          comics: response.data.results
-        })
-      })
-      .catch(err => console.error(err));
   }
 
   render(){
     const { comics } = this.state;
     const { select } = this.props;
+
+    if(comics.length === 0){
+      return "";
+    }
 
     let newList;
     if (select === "comics"){
@@ -67,7 +47,7 @@ class ComicsListPage extends Component{
             <img src={e.thumbnail.path + "/portrait_fantastic.jpg"}/>
           </td>
           <td className = "seriesTd">
-            <ul key = {idex} className="charactersList">
+            <ul className="charactersList">
             {
               e.series.items.map((e, index)=>
                 (

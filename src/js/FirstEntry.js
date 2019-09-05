@@ -1,7 +1,4 @@
 import React, {Component} from "react";
-import ReactDOM from "react-dom";
-
-import APIConnect from "./APIConnect";
 import Main from "./MainPage"
 
 class FirstEntry extends Component {
@@ -29,20 +26,17 @@ class FirstEntry extends Component {
     render(){
         if (!(localStorage.getItem("name")) && this.state.saved == false){
         return(
-            <div className = "firstEntryContainer"> 
-                
-                <div className = "firstEntryContainer-header">
-                    <img className = "firstEntryContainer-gif" src="./src/img/12832.gif"></img>
+            <div className="firstEntryContainer"> 
+                <div className="firstEntryContainer-header">
+                    <img className="firstEntryContainer-gif" src="./src/img/12832.gif"></img>
                     <div>
                         <h2>WELCOME ON GEEKOO! </h2>
-                        <h3>WHAT's YOUR NAME? </h3>
+                        <h3>The best MARVEL comic browser in the UNIVERSE!</h3>
                     </div>
                 </div>
-               
-                <form onSubmit = {this.handleSubmit} className = "firstEntryContainer-form">
-                    <div className = "firstEntryContainer-inputs">
-                        
-                        <input value = {this.state.name} onChange = {this.handleChange} name = "name" className = "firstEntryContainer-form-input"></input>
+                <form onSubmit={this.handleSubmit} className="firstEntryContainer-form">     
+                    <div className="firstEntryContainer-inputs">
+                        <input value={this.state.name} onChange={this.handleChange} name="name" className="firstEntryContainer-form-input" placeholder="what's your name?"></input>
                         <input type="submit" className = "button firstEntryContainer-form-submit" value="OK"></input>
                     </div>
                 </form>

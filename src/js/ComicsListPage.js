@@ -16,20 +16,17 @@ class ComicsListPage extends Component{
     if(prevProps.comics !== this.props.comics){
       this.setState({
         comics: this.props.comics,
-        loading: false,
       });
     }
   }
 
   ownBtnClick = comic =>{
-  
     const prevOwned = Store.getValue("comicsOwned");
     const comicsOwned = [
       ...prevOwned,
       {comic}
     ];
     Store.setValue("comicsOwned", comicsOwned)
-    console.log(Store.getValue("comicsOwned"))
   }
   
 
@@ -40,7 +37,6 @@ class ComicsListPage extends Component{
       {comic}
     ];
     Store.setValue("comicsToBuy", comicsToBuy)
-    console.log(Store.getValue("comicsToBuy"))
   }
 
   render(){
@@ -66,14 +62,32 @@ class ComicsListPage extends Component{
       
       newList = comics.map((e, index) => (
         <tr key = {index}>
-          <td> {e.title}</td>
-          <td className="tdExtraNarrow">{e.pageCount}</td>
+          <td>
+            <p>{e.title}</p>
+          <br></br>
+            <span className="tdCreators">CREATORS: 
+              <ul>
+              {
+                e.creators.items.map((e, index)=>
+                  (
+                    <li key={index}>
+                        <p>
+                          {e.name}
+                        </p>
+                    </li>
+                  )
+                )
+              }
+              </ul>
+            </span>
+          </td>
+          <td className="tdExtraNarrow">{e.pageCount} pages</td>
           <td className="tdNarrow">
             <img src={e.thumbnail.path + "/portrait_fantastic.jpg"}/>
           </td>
           <td className="tdNarrow">
             <button onClick={() => this.ownBtnClick(e)} className="button">I have this one</button>
-            <button  button onClick={() => this.toBuyBtnClick(e)} className="button">I want to buy it</button>
+            <button onClick={() => this.toBuyBtnClick(e)} className="button">I want to buy it</button>
           </td>
         </tr>))
     } else if (select === "characters"){
@@ -100,18 +114,43 @@ class ComicsListPage extends Component{
           </td>
         </tr>))
     }
-      return (
-        <table className="tableOfResults">
+
+      if (select === "characters"){
+        return (
+          <table className="tableOfResults">
+            <thead>
+              <tr>  
+                <th>CHARACTER NAME</th>
+                <th>AVATAR</th>
+                <th>SERIES</th>
+              </tr>
+            
+            </thead>
+            <tbody>
+              {newList}
+            </tbody>
+          </table>
+        )
+      }else if (select === "comics"){
+        return(
+          <table className="tableOfResults">
           <thead>
-            <th>CHARACTER NAME</th>
-            <th>AVATAR</th>
-            <th>SERIES</th>
+            <tr>  
+              <th>TITLE</th>
+              <th>PAGE COUNT</th>
+              <th>COVER</th>
+              <th>ACTION</th>
+            </tr>
+          
           </thead>
           <tbody>
             {newList}
           </tbody>
         </table>
-      )
+        )
+      }
+
+
     }
   }
 

@@ -63,10 +63,18 @@
     font-family:"avengeroregular", sans-serif;
     color: red;
     text-shadow: #666666;
-    width: 30rem;
-    border: 1px solid white;
+    width: 45rem;
     padding: 0.2rem;
     margin: 2rem auto 0.5rem auto;
     text-align: center;
     text-justify: center;
+    animation-name: error;
+    animation-duration: 2s;
+     animation-iteration-count: infinite;
+    }   
+    
+@keyframes error {
+    0%   {color: rgba($color: #ff0000, $alpha: 0.3);}
+    33%  {color: red;}
+    100% {color: rgba($color: #ff0000, $alpha: 0.3);}
 }

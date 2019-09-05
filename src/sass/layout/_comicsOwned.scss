@@ -1,0 +1,22 @@
+.collectionCount {
+    font-family:"avengeroregular", sans-serif;
+    font-size: 2rem;
+    color: red;
+    text-shadow: 2px 2px #666666;
+    border: 1px solid white;
+    padding: 0.2rem;
+    margin: 2rem auto 2rem auto;
+    text-align: center;
+    text-justify: center;
+    h1 {
+        animation-name: h1;
+        animation-duration: 4s;
+        animation-iteration-count: infinite;
+    }   
+    
+    @keyframes h1 {
+        0%   {color: rgba($color: #ffffff, $alpha: 0.3);}
+        33%  {color: red;}
+        100% {color: rgba($color: #ffffff, $alpha: 0.3);}
+    }
+}

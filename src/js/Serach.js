@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import ComicsListPage from "./ComicsListPage";
 import constants from "./constants";
-import {Spinner} from 'spin.js';
 
 class Search extends Component {
 
@@ -22,20 +21,20 @@ class Search extends Component {
   //   }
   // }
 
-  // handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   this.startSearchHandler()
-  // }
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.startSearchHandler()
+  }
 
   handleChange = (e) => {
     this.setState({
-      select: e.target.value
+      tmpSelect: e.target.value
     })
   }
 
   handleInputChange = (e) => {
     this.setState({
-      input: e.target.value
+      tmpInput: e.target.value
     })
   }
 
@@ -47,29 +46,37 @@ class Search extends Component {
   }
 
   startSearchHandler = () => {
-    this.loadCurrentPage();
-    this.setState({
-      loading: true
-    })
+    if(this.state.tmpSelect !== "" && this.state.tmpInput !== ""){
+      this.loadCurrentPage();
+      this.setState({
+        loading: true
+      })
+    }  
   }
 
   loadCurrentPage = () => {
-    const {select, input, currentPage} = this.state;
+    const {select, input, currentPage, tmpSelect, tmpInput} = this.state;
     let now = new Date().getTime();
     let hash = CryptoJS.MD5(`${now}${constants.PRIVATE_KEY}${constants.API_KEY}`);
     let marvelApi;
-    if (select === "comics"){
-      marvelApi = `http://gateway.marvel.com/v1/public/${select}?apikey=${constants.API_KEY}&ts=${now}&hash=${hash}&titleStartsWith=${input}&offset=${currentPage}`
+    let startsWith;
+    if (tmpSelect === "comics"){
+      startsWith = "titleStartsWith"
     }
-    if (select === "characters"){
-      marvelApi = `http://gateway.marvel.com/v1/public/${select}?apikey=${constants.API_KEY}&ts=${now}&hash=${hash}&nameStartsWith=${input}&offset=${currentPage}`
+    if (tmpSelect === "characters"){
+      startsWith = "nameStartsWith"
     }
+    marvelApi = `http://gateway.marvel.com/v1/public/${tmpSelect}?apikey=${constants.API_KEY}&ts=${now}&hash=${hash}&${startsWith}=${tmpInput}&offset=${currentPage}`
+
     fetch(marvelApi)
       .then(resp => resp.json())
       .then((response)=>{
         this.setState({
-          comics: response.data.results
+          comics: response.data.results,
         }, () => {
+          this.setState({
+            select: tmpSelect
+          });
           this.calculateMaxPagesHandler(response.data.total)
         });
       })
@@ -78,100 +85,102 @@ class Search extends Component {
 
   changeCurrentPage = currentPage => {
     this.setState({
-      currentPage
+      currentPage: currentPage
     }, this.loadCurrentPage);
   }
 
   renderPagination = () => {
-    const { maxPages } = this.state;
+    const { maxPages, currentPage} = this.state;
     const links = [];
-    for(let i=0; i <= maxPages; i++){
-      links.push(
-        <li onClick={() => { this.changeCurrentPage(i) }} key={i}>
-          <span>{ i + 1 }</span>
-        </li>
-      )
-    } 
-    
+
     if (maxPages<1){
       return ""
-      }
-    // else if(this.state.currentPage !==0){
+    }
 
-      // let n1;
-      // let n2;
-      // (this.state.currentPage<this.state.maxPages ? n1 === 1 : n1 === 0 )
+    else if (maxPages <= 10){
+      for(let i=0; i <= maxPages; i++){
+        links.push(
+          <li onClick={() => { this.changeCurrentPage(i) }} key={i}>
+            <span>{ i + 1 }</span>
+          </li>
+        )
+      } 
+    }
+    else if (maxPages > 10 && currentPage < maxPages-5){
+      for(let i=currentPage; i <= currentPage+5; i++){
+        links.push(
+          <li onClick={() => { this.changeCurrentPage(i) }} key={i}>
+            <span>{ i + 1 }</span>
+          </li>
+        )
+      }  
+      links.push(
+          <li>
+            <span>...</span>
+          </li>
+        )   
+    }
     
-      // (this.state.currentPage>0 ? n2 === 1 : n2 === 0 );
+    // let style = "none";  
+    // if (maxPages>10){
+    //       for(let i=currentPage; i <= currentPage+5; i++){
+    //         style = "block"
+    //       }
+    //       for(let i=maxPages-5; i <= maxPages; i++){
+    //         style = "block"
+    //       }
+    //     }
+    // for(let i=0; i <= maxPages; i++){
+    //         links.push(
+    //           <li onClick={() => { this.changeCurrentPage(i) }} style={{display: style}} key={i}>
+    //             <span>{ i + 1 }</span>
+    //           </li>
+    //           )
+    //       } 
+    
+  
+          // if the page number is < 3, render the page number
+          // if the page number is within +-2 of the current page, render the page number
+          // if the page number is > the total number of pages -3 render the page number
+          // if the last page number wasn't rendered and dots haven't already been rendered render dots '...' do indicate a gap
+          
+          // else do nothing
+    
 
-      // let prev = (this.state.currentPage - n2);
-      // let next = (this.state.currentPage + n1);    
-       //   <li onClick={() => { this.changeCurrentPage(prev) }}>
-          //     <span>prev</span>
-          //   </li>
-            // { links}
-            
+      let onClickPagePrev = Number(currentPage) -1; 
+      let onClickPageNext = Number(currentPage) +1; 
+      if(currentPage === 0){
+        onClickPagePrev = 0
+      }
+      else if(currentPage === maxPages){
+        onClickPageNext = maxPages
+      }
 
       return (
-          <ul className="pagination">
-            <li onClick={() => { this.changeCurrentPage(this.state.currentPage -1) }}>
-              <span>prev</span>
-            </li>
-            {links}
-            <li onClick={() => { this.changeCurrentPage(this.state.currentPage +1) }}>
-              <span>next</span>
-            </li>
-          </ul>
+        <ul className="pagination">
+          <li onClick={() => { this.changeCurrentPage(onClickPagePrev) }}>
+            <span>prev</span>
+          </li>
+          {links}
+          <li onClick={() => { this.changeCurrentPage(onClickPageNext) }}>
+            <span>next</span>
+          </li>
+        </ul>
         )
-   
+      }
 
-  }
   render() {
-    const { comics, select, input, loading } = this.state;
+    const { comics, select, input, loading, tmpInput, tmpSelect } = this.state;
     
     let error;
     if (input.length < 1 || select === "") {
       error = (
         <div className="searchError">
-          <h1>{localStorage.getItem("name")}, you need to tell me what are you looking for</h1>
+          <h1>{localStorage.getItem("name")}, you need to tell me what are you searching for </h1>
+          <h2>Choose category and name or title</h2>
         </div>
       );
     }
-
-    // let loadingState; 
-    // const opts = {
-    //       lines: 9, // The number of lines to draw
-    //       length: 38, // The length of each line
-    //       width: 17, // The line thickness
-    //       radius: 45, // The radius of the inner circle
-    //       scale: 1, // Scales overall size of the spinner
-    //       corners: 1, // Corner roundness (0..1)
-    //       color: '#ff0000', // CSS color or array of colors
-    //       fadeColor: 'transparent', // CSS color or array of colors
-    //       speed: 0.6, // Rounds per second
-    //       rotate: 26, // The rotation offset
-    //       animation: 'spinner-line-fade-default', // The CSS animation name for the lines
-    //       direction: 1, // 1: clockwise, -1: counterclockwise
-    //       zIndex: 2e9, // The z-index (defaults to 2000000000)
-    //       className: 'spinner', // The CSS class to assign to the spinner
-    //       top: '49%', // Top position relative to parent
-    //       left: '50%', // Left position relative to parent
-    //       shadow: '0 0 1px transparent', // Box-shadow for the lines
-    //       position: 'absolute' // Element positioning
-    //     };
-        
-        
-    //     const spinner = new Spinner(opts)
-    
-    //     if (loading === true) {
-    //       loadingState = spinner
-    //     }
-    //     else{
-    //       loadingState === ""
-    //     }
-
-
-
 
     return (
       <>
@@ -180,16 +189,16 @@ class Search extends Component {
           <div className="searchContainer">
             <form onSubmit={this.handleSubmit}>
               <select
-                // value={select}
+                defaultValue="Choose category"
                 onChange={this.handleChange}
                 name="search by"
                 className="searchContainer-select"
               >
-                <option disabled selected>Choose category</option>
+                <option value="" disabled>Choose category</option>
                 <option value="characters">Characters</option>
                 <option value="comics">Comics title</option>
               </select>
-              <input value={input} onChange={this.handleInputChange} placeholder="Enter what you search for"
+              <input value={tmpInput} onChange={this.handleInputChange} placeholder="What are you searching for?"
                      className="sarchContainer-input"></input>
               <input
                 type="button"
@@ -198,8 +207,6 @@ class Search extends Component {
                 onClick={this.startSearchHandler}
               />
             </form>
-            {/* {loadingState} */}
-            
           </div>
           <ComicsListPage select={select} comics={comics} loading={loading}/>
           

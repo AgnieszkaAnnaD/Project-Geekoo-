@@ -25,17 +25,17 @@ class ComicsToBuy extends Component {
         newList = comics.map((e, index) => (
             <tr key = {index}>
                 <td> 
-                    {e.comic.format} : {e.comic.title}
+                    <span>{e.comic.format} : {e.comic.title}</span>
                 </td>
                 <td className="tdNarrow">
                     <img src={e.comic.thumbnail.path + "/portrait_fantastic.jpg"}/>
                 </td>
                 <td className="tdNarrow">
                     <span>{e.comic.prices[0].price} $</span>
+                    <button className="button"> <a href={e.comic.urls[0].url} target="_blank">BUY!</a></button>
                 </td>
                 <td className="tdNarrow">
-                    <button className="button" onClick={()=>this.removeBtn(e)}>REMOVE</button>
-                    <button className="button"> <a href={e.comic.urls[0].url} target="_blank">BUY!</a></button>
+                    <button className="button removebtn" onClick={()=>this.removeBtn(e)}>REMOVE</button>  
                 </td>
             </tr>))
 

@@ -22,7 +22,6 @@ class ComicsToBuy extends Component {
     render(){
         const {comics} = this.state;
         let newList;
-        
         newList = comics.map((e, index) => (
             <tr key = {index}>
                 <td> 
@@ -34,11 +33,18 @@ class ComicsToBuy extends Component {
                 <td className="tdNarrow">
                     <span>{e.comic.prices[0].price} $</span>
                 </td>
-                <td className="tdNarrow"><button className="button" onClick={()=>this.removeBtn(e)}>REMOVE</button></td>
+                <td className="tdNarrow">
+                    <button className="button" onClick={()=>this.removeBtn(e)}>REMOVE</button>
+                    <button className="button"> <a href={e.comic.urls[0].url} target="_blank">BUY!</a></button>
+                </td>
             </tr>))
 
         if(comics.length > 0){
             return (
+                <>
+                <div className="collectionCount">
+                    <h1>TIME FOR SHOPPING!</h1>
+                </div>
                 <table className="tableOfResults">
                     <thead>
                         <tr>
@@ -57,13 +63,13 @@ class ComicsToBuy extends Component {
                         {newList}
                     </tbody>
                 </table>
+                </>
             )
         }else{
             return( 
             <div className="collectionCount">
                 <h1>YOU DON'T HAVE ANY COMICS ON YOUR SHOPPING LIST YET!</h1>
             </div>)
-  
         }
     }
 }

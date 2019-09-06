@@ -38,7 +38,7 @@
 	width: 80px;
 	height: 80px;
 	transform: translate(-50%, -50%) rotate(45deg) translate3d(0,0,0);
-	animation: loader 1.2s infinite ease-in-out;
+	animation: loader 2s infinite ease-in-out;
 
 	span {
 		position: absolute;
@@ -46,7 +46,7 @@
 		width: 40px;
 		height: 40px;
         background-color: red;
-        border: 2px solid white;
+        border: 2px solid #ffffff;
 		animation: loaderBlock 1.2s infinite ease-in-out both;
 
 		&:nth-child(1) {

@@ -10,16 +10,9 @@ class Search extends Component {
     maxPages: 0,
     currentPage: 0,
     loading: false,
-    comics: []
+    comics: [], 
+    tmpInput: ""
   }
-
-  // componentDidUpdate(prevState) {
-  //   if(prevState.comics !== this.state.comics){
-  //     this.setState({
-  //       loading: false,
-  //     })
-  //   }
-  // }
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -106,8 +99,8 @@ class Search extends Component {
         )
       } 
     }
-    else if (maxPages > 10 && currentPage < maxPages-5){
-      for(let i=currentPage; i <= currentPage+5; i++){
+    else if (maxPages > 10 && currentPage < maxPages-10){
+      for(let i=currentPage; i <= currentPage+4; i++){
         links.push(
           <li onClick={() => { this.changeCurrentPage(i) }} key={i}>
             <span>{ i + 1 }</span>
@@ -115,38 +108,18 @@ class Search extends Component {
         )
       }  
       links.push(
-          <li>
+          <li key="333">
             <span>...</span>
           </li>
-        )   
+        )
+        for(let i=maxPages-5; i<=maxPages; i++){
+          links.push(
+            <li onClick={() => { this.changeCurrentPage(i) }} key={i}>
+              <span>{ i + 1 }</span>
+            </li>
+          )
+        }
     }
-    
-    // let style = "none";  
-    // if (maxPages>10){
-    //       for(let i=currentPage; i <= currentPage+5; i++){
-    //         style = "block"
-    //       }
-    //       for(let i=maxPages-5; i <= maxPages; i++){
-    //         style = "block"
-    //       }
-    //     }
-    // for(let i=0; i <= maxPages; i++){
-    //         links.push(
-    //           <li onClick={() => { this.changeCurrentPage(i) }} style={{display: style}} key={i}>
-    //             <span>{ i + 1 }</span>
-    //           </li>
-    //           )
-    //       } 
-    
-  
-          // if the page number is < 3, render the page number
-          // if the page number is within +-2 of the current page, render the page number
-          // if the page number is > the total number of pages -3 render the page number
-          // if the last page number wasn't rendered and dots haven't already been rendered render dots '...' do indicate a gap
-          
-          // else do nothing
-    
-
       let onClickPagePrev = Number(currentPage) -1; 
       let onClickPageNext = Number(currentPage) +1; 
       if(currentPage === 0){

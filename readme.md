@@ -1,4 +1,4 @@
-# Project Geekoo! (Underline)
+# Project Geekoo!
 =============
 
 Simple Marvel API search.

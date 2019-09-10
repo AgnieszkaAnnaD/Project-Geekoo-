@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import ComicsListPage from "./ComicsListPage";
-import constants from "./constants";
+import constants from "./Constants";
 
 class Search extends Component {
 
@@ -48,7 +48,7 @@ class Search extends Component {
   }
 
   loadCurrentPage = () => {
-    const {select, input, currentPage, tmpSelect, tmpInput} = this.state;
+    const {currentPage, tmpSelect, tmpInput} = this.state;
     let now = new Date().getTime();
     let hash = CryptoJS.MD5(`${now}${constants.PRIVATE_KEY}${constants.API_KEY}`);
     let marvelApi;
@@ -99,27 +99,18 @@ class Search extends Component {
         )
       } 
     }
-    else if (maxPages > 10 && currentPage < maxPages-10){
-      for(let i=currentPage; i <= currentPage+4; i++){
+
+
+    else if (maxPages > 10 ){
+      for (let i=currentPage; i<= currentPage+9 && i<=maxPages; i++){
         links.push(
           <li onClick={() => { this.changeCurrentPage(i) }} key={i}>
             <span>{ i + 1 }</span>
           </li>
         )
-      }  
-      links.push(
-          <li key="333">
-            <span>...</span>
-          </li>
-        )
-        for(let i=maxPages-5; i<=maxPages; i++){
-          links.push(
-            <li onClick={() => { this.changeCurrentPage(i) }} key={i}>
-              <span>{ i + 1 }</span>
-            </li>
-          )
-        }
+      }
     }
+
       let onClickPagePrev = Number(currentPage) -1; 
       let onClickPageNext = Number(currentPage) +1; 
       if(currentPage === 0){

@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import ReactDOM from "react-dom";
 import Search from "./Serach";
 import ComicsOwned from "./ComicsOwned";
 import ComicsToBuy from "./ComicsToBuy";
@@ -29,6 +28,7 @@ class Main extends Component{
             toRender: "buy",
         })
     }
+
     render(){
         let toRender;
         if (this.state.toRender === "search") {
